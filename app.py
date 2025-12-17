@@ -17,9 +17,10 @@ st.set_page_config(
 def load_model():
     """Load pre-trained sentiment analysis model from Hugging Face"""
     try:
-        return pipeline("sentiment-analysis", model="distilbert-base-uncased-finetuned-sst-2-english")
+        return pipeline("sentiment-analysis", model="distilbert-base-uncased-finetuned-sst-2-english", device=-1)
     except Exception as e:
         st.error(f"Failed to load sentiment model: {e}")
+        st.info("Using fallback sentiment analysis...")
         return None
 
 sentiment_pipeline = load_model()
