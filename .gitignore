@@ -13,8 +13,8 @@ env/
 # Streamlit
 .streamlit/
 
-# Data files (optional - remove if you want to commit data.json)
-data.json
+# Data files - comment out to include data.json for deployment
+# data.json
 
 # IDE
 .vscode/
