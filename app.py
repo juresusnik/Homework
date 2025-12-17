@@ -3,38 +3,14 @@ import pandas as pd
 import json
 import os
 from transformers import pipeline
-from datetime import datetime
 import plotly.express as px
-import plotly.graph_objects as go
-from wordcloud import WordCloud
-import matplotlib.pyplot as plt
 
 # Page Config
 st.set_page_config(
-    page_title="Brand Sentinel 2023 | Sentiment Analysis",
+    page_title="Brand Sentinel 2023 - Sentiment Analysis",
     page_icon="📊",
-    layout="wide",
-    initial_sidebar_state="expanded"
+    layout="wide"
 )
-
-# Custom CSS
-st.markdown("""
-<style>
-    .main-header {
-        font-size: 2.5rem;
-        font-weight: bold;
-        color: #1f77b4;
-        text-align: center;
-        padding: 1rem 0;
-    }
-    .metric-card {
-        background-color: #f0f2f6;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        margin: 0.5rem 0;
-    }
-</style>
-""", unsafe_allow_html=True)
 
 # Load Sentiment Model (Hugging Face)
 @st.cache_resource
@@ -73,14 +49,12 @@ def load_data():
 df = load_data()
 
 # --- Sidebar Navigation ---
-st.sidebar.markdown('<div class="main-header">🔍 Navigation</div>', unsafe_allow_html=True)
-st.sidebar.markdown("---")
-page = st.sidebar.radio("Go to:", ["📊 Reviews (Analysis)", "📦 Products", "💬 Testimonials"], index=0)
+st.sidebar.title("Navigation")
+page = st.sidebar.radio("Select Section:", ["Reviews", "Products", "Testimonials"])
 
 # --- Products/Testimonials Sections ---
-if page == "📦 Products":
-    st.markdown('<div class="main-header">📦 Product Catalog</div>', unsafe_allow_html=True)
-    st.markdown("---")
+if page == "Products":
+    st.header("📦 Products")
     
     if not df.empty:
         products_df = df[df['section'] == 'Products'] if 'section' in df.columns else pd.DataFrame()
@@ -88,35 +62,33 @@ if page == "📦 Products":
         if not products_df.empty:
             st.dataframe(products_df, use_container_width=True)
         else:
-            st.info("No products data available. This section shows product information if present in scraped data.")
+            st.info("No products data available in the dataset.")
     else:
-        st.warning("No data loaded. Please run the scraper first.")
+        st.warning("No data loaded. Please run scraper.py first.")
 
-elif page == "💬 Testimonials":
-    st.markdown('<div class="main-header">💬 Client Testimonials</div>', unsafe_allow_html=True)
-    st.markdown("---")
+elif page == "Testimonials":
+    st.header("💬 Testimonials")
     
     if not df.empty:
         testimonials_df = df[df['section'] == 'Testimonials'] if 'section' in df.columns else pd.DataFrame()
         
         if not testimonials_df.empty:
-            st.table(testimonials_df)
+            st.dataframe(testimonials_df, use_container_width=True)
         else:
-            st.info("No testimonials data available. This section shows testimonial information if present in scraped data.")
+            st.info("No testimonials data available in the dataset.")
     else:
-        st.warning("No data loaded. Please run the scraper first.")
+        st.warning("No data loaded. Please run scraper.py first.")
 
 # --- Reviews (Core Feature) ---
-elif page == "📊 Reviews (Analysis)":
-    st.markdown('<div class="main-header">📊 2023 Sentiment Analysis Dashboard</div>', unsafe_allow_html=True)
-    st.markdown("---")
+elif page == "Reviews":
+    st.header("📊 2023 Sentiment Analysis Dashboard")
     
     if df.empty:
         st.error("⚠️ No data available. Please run `python scraper.py` to collect reviews.")
         st.stop()
     
     if sentiment_pipeline is None:
-        st.error("⚠️ Sentiment analysis model failed to load. Please check your internet connection and try again.")
+        st.error("⚠️ Sentiment analysis model failed to load.")
         st.stop()
     
     # Month Selection
@@ -176,138 +148,77 @@ elif page == "📊 Reviews (Analysis)":
         st.markdown("---")
         
         # Display Table
-        st.subheader(f"📋 Detailed Reviews")
-        display_df = filtered_df[['date', 'title', 'text', 'Sentiment_Display', 'Confidence']].copy()
+        st.subheader(f"📋 Reviews for {selected_month_name} 2023")
+        display_df = filtered_df[['date', 'title', 'text', 'Sentiment', 'Confidence']].copy()
         display_df['date'] = display_df['date'].dt.strftime("%Y-%m-%d")
-        display_df = display_df.rename(columns={
-            'date': 'Date',
-            'title': 'Title',
-            'text': 'Review Text',
-            'Sentiment_Display': 'Sentiment',
-            'Confidence': 'Confidence'
-        })
-        st.dataframe(display_df, use_container_width=True, height=300)
+        st.dataframe(display_df, use_container_width=True)
         
         st.markdown("---")
         
-        # --- Visualization ---
+        # --- Visualization: Bar Chart (Required) ---
+        st.subheader("📊 Sentiment Distribution")
+        
+        # Calculate sentiment counts and average confidence
+        sentiment_counts = filtered_df['Sentiment'].value_counts().reset_index()
+        sentiment_counts.columns = ['Sentiment', 'Count']
+        
+        # Calculate average confidence per sentiment
+        avg_conf_by_sentiment = filtered_df.groupby('Sentiment')['Confidence'].mean().reset_index()
+        sentiment_counts = sentiment_counts.merge(avg_conf_by_sentiment, on='Sentiment')
+        
+        # Create bar chart with confidence scores
+        fig = px.bar(
+            sentiment_counts,
+            x='Sentiment',
+            y='Count',
+            color='Sentiment',
+            title=f"Positive vs Negative Reviews - {selected_month_name} 2023<br><sub>Overall Average Confidence: {avg_confidence:.1%}</sub>",
+            color_discrete_map={'POSITIVE': '#2ecc71', 'NEGATIVE': '#e74c3c'},
+            text='Count',
+            hover_data={'Confidence': ':.1%'},
+            labels={'Count': 'Number of Reviews', 'Confidence': 'Avg Confidence'}
+        )
+        
+        fig.update_traces(
+            textposition='outside',
+            hovertemplate='<b>%{x}</b><br>Count: %{y}<br>Avg Confidence: %{customdata[0]:.1%}<extra></extra>'
+        )
+        
+        fig.update_layout(
+            xaxis_title="Sentiment",
+            yaxis_title="Number of Reviews",
+            showlegend=False,
+            height=500,
+            font=dict(size=14)
+        )
+        
+        st.plotly_chart(fig, use_container_width=True)
+        
+        # Show detailed confidence metrics
         col1, col2 = st.columns(2)
-        
         with col1:
-            st.subheader("📊 Sentiment Distribution")
-            
-            # Count plot with confidence overlay
-            sentiment_counts = filtered_df['Sentiment'].value_counts().reset_index()
-            sentiment_counts.columns = ['Sentiment', 'Count']
-            
-            # Calculate average confidence per sentiment
-            avg_conf_by_sentiment = filtered_df.groupby('Sentiment')['Confidence'].mean().reset_index()
-            sentiment_counts = sentiment_counts.merge(avg_conf_by_sentiment, on='Sentiment')
-            
-            # Create bar chart
-            fig = px.bar(
-                sentiment_counts,
-                x='Sentiment',
-                y='Count',
-                color='Sentiment',
-                title=f"Sentiment Distribution (Overall Confidence: {avg_confidence:.2%})",
-                color_discrete_map={'POSITIVE': '#28a745', 'NEGATIVE': '#dc3545'},
-                text='Count',
-                hover_data={'Confidence': ':.2%'}
-            )
-            
-            fig.update_traces(textposition='outside')
-            fig.update_layout(
-                xaxis_title="Sentiment",
-                yaxis_title="Number of Reviews",
-                showlegend=False,
-                height=400
-            )
-            
-            st.plotly_chart(fig, use_container_width=True)
-            
-            # Additional confidence metrics
-            st.markdown("**Confidence Metrics:**")
-            for _, row in sentiment_counts.iterrows():
-                st.write(f"- {row['Sentiment']}: {row['Confidence']:.2%} average confidence")
-        
+            st.metric("Positive Reviews Avg Confidence", 
+                     f"{sentiment_counts[sentiment_counts['Sentiment']=='POSITIVE']['Confidence'].values[0]:.1%}" 
+                     if 'POSITIVE' in sentiment_counts['Sentiment'].values else "N/A")
         with col2:
-            # BONUS: Word Cloud
-            st.subheader("☁️ Key Terms (Word Cloud)")
-            
-            try:
-                text_combined = " ".join(filtered_df['text'].tolist())
-                
-                if len(text_combined.strip()) > 0:
-                    wordcloud = WordCloud(
-                        background_color="white",
-                        width=800,
-                        height=400,
-                        colormap='viridis',
-                        max_words=100,
-                        relative_scaling=0.5,
-                        min_font_size=10
-                    ).generate(text_combined)
-                    
-                    fig_wc, ax = plt.subplots(figsize=(10, 5))
-                    ax.imshow(wordcloud, interpolation='bilinear')
-                    ax.axis("off")
-                    ax.set_title(f"Most Frequent Terms - {selected_month_name} 2023", fontsize=14, pad=10)
-                    st.pyplot(fig_wc)
-                else:
-                    st.warning("Not enough text data to generate word cloud.")
-            except Exception as e:
-                st.error(f"Error generating word cloud: {e}")
-        
-        st.markdown("---")
-        
-        # --- Additional Insights ---
-        st.subheader("💡 Additional Insights")
-        
-        col_i1, col_i2 = st.columns(2)
-        
-        with col_i1:
-            st.markdown("**Confidence Distribution:**")
-            fig_conf = px.histogram(
-                filtered_df,
-                x='Confidence',
-                nbins=20,
-                color='Sentiment',
-                title="Confidence Score Distribution",
-                color_discrete_map={'POSITIVE': '#28a745', 'NEGATIVE': '#dc3545'}
-            )
-            fig_conf.update_layout(height=300)
-            st.plotly_chart(fig_conf, use_container_width=True)
-        
-        with col_i2:
-            st.markdown("**Daily Review Volume:**")
-            daily_counts = filtered_df.groupby(filtered_df['date'].dt.day).size().reset_index()
-            daily_counts.columns = ['Day', 'Count']
-            
-            fig_daily = px.line(
-                daily_counts,
-                x='Day',
-                y='Count',
-                title=f"Daily Review Count - {selected_month_name} 2023",
-                markers=True
-            )
-            fig_daily.update_layout(height=300)
-            st.plotly_chart(fig_daily, use_container_width=True)
+            st.metric("Negative Reviews Avg Confidence", 
+                     f"{sentiment_counts[sentiment_counts['Sentiment']=='NEGATIVE']['Confidence'].values[0]:.1%}" 
+                     if 'NEGATIVE' in sentiment_counts['Sentiment'].values else "N/A")
             
     else:
-        st.warning(f"⚠️ No reviews found for {selected_month_name} 2023. Try another month or run the scraper again.")
+        st.warning(f"⚠️ No reviews found for {selected_month_name} 2023. Try another month.")
         
         # Show available data summary
         if not df.empty:
-            st.info(f"**Total reviews in dataset:** {len(df)}")
+            st.info(f"Total reviews in dataset: {len(df)}")
             if 'date' in df.columns:
                 date_range = f"{df['date'].min().strftime('%Y-%m-%d')} to {df['date'].max().strftime('%Y-%m-%d')}"
-                st.info(f"**Date range:** {date_range}")
+                st.info(f"Date range: {date_range}")
 
 # Footer
 st.sidebar.markdown("---")
-st.sidebar.markdown("**About:**")
 st.sidebar.info(
-    "This app uses Hugging Face's DistilBERT model for sentiment analysis. "
-    "Reviews are scraped from web-scraping.dev and analyzed in real-time."
+    "**Sentiment Analysis**\n\n"
+    "Model: DistilBERT (Hugging Face)\n\n"
+    "Data: web-scraping.dev"
 )
