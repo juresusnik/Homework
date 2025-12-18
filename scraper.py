@@ -18,9 +18,10 @@ except Exception as e:
 def scrape_data():
     """
     Scrapes review data from web-scraping.dev using GraphQL API.
-    Handles pagination to retrieve ALL reviews from the website.
+    Fetches ALL reviews and filters for year 2023 to simulate real brand monitoring.
     """
     print("🌐 Starting web scraping from https://web-scraping.dev/reviews...")
+    print("🎯 Target: All reviews from year 2023")
     print("=" * 70)
     
     graphql_url = "https://web-scraping.dev/api/graphql"
@@ -52,8 +53,9 @@ def scrape_data():
         has_next_page = True
         cursor = None
         batch_size = 50  # Fetch 50 reviews per request
+        max_pages = 20  # Fetch up to 20 pages to ensure we get full 2023 coverage
         
-        while has_next_page:
+        while has_next_page and page_num <= max_pages:
             print(f"\n📄 Fetching page {page_num}...")
             
             # Prepare GraphQL request
@@ -98,9 +100,14 @@ def scrape_data():
                 try:
                     date_obj = datetime.strptime(date_str, "%Y-%m-%d")
                     formatted_date = date_obj.strftime("%Y-%m-%d")
+                    
+                    # Filter: Only include reviews from 2023
+                    if date_obj.year != 2023:
+                        continue
+                        
                 except ValueError:
-                    # Fallback if date format is different
-                    formatted_date = date_str
+                    # Skip reviews with invalid dates
+                    continue
                 
                 # Create title from review ID (e.g., "red-potion-4" -> "Red Potion Review")
                 title = " ".join(word.capitalize() for word in review_id.rsplit('-', 1)[0].split('-'))
@@ -129,19 +136,29 @@ def scrape_data():
                     "confidence": sentiment_score
                 })
             
-            print(f"   ✅ Fetched {len(edges)} reviews (Total so far: {len(all_reviews)})")
+            print(f"   ✅ Fetched {len(edges)} reviews from page (2023 only: {len(all_reviews)} total)")
             
             # Check pagination
             has_next_page = page_info.get("hasNextPage", False)
             cursor = page_info.get("endCursor")
             page_num += 1
             
-            # Be polite to the server
+            # Continue until we have enough 2023 data or no more pages
             if has_next_page:
                 time.sleep(0.5)
         
         print(f"\n{'=' * 70}")
-        print(f"✅ Scraping complete! Retrieved {len(all_reviews)} reviews total.")
+        print(f"✅ Scraping complete! Retrieved {len(all_reviews)} reviews from 2023.")
+        
+        # Sentiment distribution
+        if sentiment_pipeline:
+            positive_count = sum(1 for r in all_reviews if r.get('sentiment') == 'POSITIVE')
+            negative_count = sum(1 for r in all_reviews if r.get('sentiment') == 'NEGATIVE')
+            print(f"\n💭 Sentiment Analysis Summary:")
+            print(f"   • Positive: {positive_count} ({positive_count/len(all_reviews)*100:.1f}%)")
+            print(f"   • Negative: {negative_count} ({negative_count/len(all_reviews)*100:.1f}%)")
+            if positive_count > negative_count * 3:
+                print(f"   ⚠️  Note: High positive ratio is from the actual website data.")
         
     except requests.RequestException as e:
         print(f"\n❌ Network error during scraping: {e}")
