@@ -5,7 +5,9 @@
     "text": "Unique flavor and great energy boost. It's the perfect gamer's drink!",
     "rating": 5,
     "date": "2023-05-18",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "red-potion-4",
@@ -13,7 +15,9 @@
     "text": "Good flavor and keeps me energized. The bottle design is really fun.",
     "rating": 5,
     "date": "2023-05-17",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "dragon-potion-4",
@@ -21,7 +25,9 @@
     "text": "Excellent energy drink for gamers. The tropical flavor is refreshing.",
     "rating": 4,
     "date": "2023-05-16",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "blue-energy-potion-6",
@@ -29,7 +35,9 @@
     "text": "It’s fun, tastes good, and the energy boost is helpful during intense gaming sessions.",
     "rating": 5,
     "date": "2023-05-15",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "classic-leather-sneakers-10",
@@ -37,7 +45,9 @@
     "text": "The best sneakers I've bought in a long time. Stylish, comfortable and the leather quality is top-notch.",
     "rating": 5,
     "date": "2023-05-15",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9998
   },
   {
     "id": "dark-red-potion-4",
@@ -45,7 +55,9 @@
     "text": "The cherry cola flavor is a win. Keeps me energized and focused.",
     "rating": 5,
     "date": "2023-05-12",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "kids-light-up-sneakers-12",
@@ -53,7 +65,9 @@
     "text": "These shoes are a hit with my twins. They love the lights and they seem to be quite durable.",
     "rating": 5,
     "date": "2023-05-10",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "hiking-boots-outdoor-12",
@@ -61,7 +75,9 @@
     "text": "Excellent boots for outdoor adventures. They offer great support and are very comfortable.",
     "rating": 5,
     "date": "2023-05-01",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "cat-ear-beanie-10",
@@ -69,7 +85,9 @@
     "text": "Nice design and good quality, but a bit too tight for me. Otherwise, it's a pretty cool beanie.",
     "rating": 4,
     "date": "2023-05-01",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9985
   },
   {
     "id": "blue-energy-potion-5",
@@ -77,7 +95,9 @@
     "text": "Really enjoyed the citrus flavor and the energy boost it gives.",
     "rating": 5,
     "date": "2023-04-25",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "kids-light-up-sneakers-11",
@@ -85,7 +105,9 @@
     "text": "Great concept, but the sizing is a bit off. Order a size larger.",
     "rating": 3,
     "date": "2023-04-25",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "NEGATIVE",
+    "confidence": 0.9942
   },
   {
     "id": "chocolate-candy-box-10",
@@ -93,7 +115,9 @@
     "text": "Delicious chocolates, and the box is pretty substantial. It'd make a nice gift.",
     "rating": 5,
     "date": "2023-04-18",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "hiking-boots-outdoor-11",
@@ -101,7 +125,9 @@
     "text": "The boots are durable, but the laces could be better quality.",
     "rating": 4,
     "date": "2023-04-12",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.8142
   },
   {
     "id": "dragon-potion-3",
@@ -109,7 +135,9 @@
     "text": "This potion is a game changer. Love the energy boost and the flavor.",
     "rating": 5,
     "date": "2023-04-11",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9998
   },
   {
     "id": "men-running-shoes-10",
@@ -117,7 +145,9 @@
     "text": "Light, comfortable, and nice design. I'm buying another pair.",
     "rating": 5,
     "date": "2023-04-10",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "kids-light-up-sneakers-10",
@@ -125,7 +155,9 @@
     "text": "Highly recommend! These shoes are great for evening walks. Kids love them!",
     "rating": 5,
     "date": "2023-04-10",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "red-potion-3",
@@ -133,7 +165,9 @@
     "text": "It's like a health potion for gamers! The energy boost is spot on.",
     "rating": 4,
     "date": "2023-04-09",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9986
   },
   {
     "id": "teal-potion-3",
@@ -141,7 +175,9 @@
     "text": "Really helps me focus during intense gaming marathons. The teal color is a nice touch.",
     "rating": 5,
     "date": "2023-04-07",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "classic-leather-sneakers-9",
@@ -149,7 +185,9 @@
     "text": "The shoes are nice but they didn't fit me well. I had to exchange for a larger size.",
     "rating": 3,
     "date": "2023-04-07",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "NEGATIVE",
+    "confidence": 0.9981
   },
   {
     "id": "dark-red-potion-3",
@@ -157,7 +195,9 @@
     "text": "Great taste, and the energy kick is awesome. Feels just like a strength potion.",
     "rating": 5,
     "date": "2023-04-05",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "cat-ear-beanie-9",
@@ -165,7 +205,9 @@
     "text": "Exceptional beanie! I wear it every time I go out in cold weather. The material is comfortable and durable. Highly recommend it.",
     "rating": 5,
     "date": "2023-04-05",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "blue-energy-potion-4",
@@ -173,7 +215,9 @@
     "text": "Great taste and doesn't give me a crash afterwards.",
     "rating": 4,
     "date": "2023-04-01",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9944
   },
   {
     "id": "women-sandals-10",
@@ -181,7 +225,9 @@
     "text": "Good quality and fit, but the color is a bit off from the picture. Still, they're pretty.",
     "rating": 4,
     "date": "2023-03-25",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.995
   },
   {
     "id": "cat-ear-beanie-8",
@@ -189,7 +235,9 @@
     "text": "The beanie is cute, but the cat ears were a bit floppy. Overall, I like it and wear it regularly.",
     "rating": 3,
     "date": "2023-03-25",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9761
   },
   {
     "id": "hiking-boots-outdoor-10",
@@ -197,7 +245,9 @@
     "text": "Good quality and comfortable, but a bit pricey.",
     "rating": 4,
     "date": "2023-03-24",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9998
   },
   {
     "id": "chocolate-candy-box-9",
@@ -205,7 +255,9 @@
     "text": "The orange flavor wasn't my favorite, but the cherry ones are great.",
     "rating": 4,
     "date": "2023-03-20",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "red-potion-2",
@@ -213,7 +265,9 @@
     "text": "Not only does it look cool, but it tastes great and gives a good energy boost!",
     "rating": 5,
     "date": "2023-03-20",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "dragon-potion-2",
@@ -221,7 +275,9 @@
     "text": "Just what I need for long gaming sessions. Great flavor and energy boost.",
     "rating": 5,
     "date": "2023-03-15",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "dark-red-potion-2",
@@ -229,7 +285,9 @@
     "text": "Definitely helped me stay focused during my long gaming nights. Plus, the bottle design is pretty cool.",
     "rating": 5,
     "date": "2023-03-14",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9998
   },
   {
     "id": "teal-potion-2",
@@ -237,7 +295,9 @@
     "text": "I love how it gives me the energy I need for my gaming sessions. Plus, no sugar crash.",
     "rating": 4,
     "date": "2023-03-14",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9998
   },
   {
     "id": "blue-energy-potion-3",
@@ -245,7 +305,9 @@
     "text": "Finally, an energy drink for gamers! It's just like a mana potion.",
     "rating": 5,
     "date": "2023-03-10",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "NEGATIVE",
+    "confidence": 0.8313
   },
   {
     "id": "cat-ear-beanie-7",
@@ -253,7 +315,9 @@
     "text": "I'm not really a cat person, but I like the quality and comfort of this beanie. My friend recommended it, and I'm glad I bought it.",
     "rating": 4,
     "date": "2023-03-10",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "men-running-shoes-9",
@@ -261,7 +325,9 @@
     "text": "They're a good pair of running shoes for the price. They're not the best I've had, but they do the job.",
     "rating": 3,
     "date": "2023-03-05",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9995
   },
   {
     "id": "kids-light-up-sneakers-9",
@@ -269,7 +335,9 @@
     "text": "The sneakers are fun and eye-catching, but my pair arrived with one shoe not lighting up.",
     "rating": 2,
     "date": "2023-03-05",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "NEGATIVE",
+    "confidence": 0.9976
   },
   {
     "id": "classic-leather-sneakers-8",
@@ -277,7 +345,9 @@
     "text": "Very comfortable and the leather feels premium. Would recommend to anyone looking for classic sneakers.",
     "rating": 5,
     "date": "2023-03-01",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9989
   },
   {
     "id": "classic-leather-sneakers-7",
@@ -285,7 +355,9 @@
     "text": "Great sneakers, but the white ones get dirty easily. Otherwise, they're perfect.",
     "rating": 4,
     "date": "2023-02-25",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9988
   },
   {
     "id": "hiking-boots-outdoor-9",
@@ -293,7 +365,9 @@
     "text": "Love these boots. They're rugged and comfortable, perfect for outdoor activities.",
     "rating": 5,
     "date": "2023-02-22",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "blue-energy-potion-2",
@@ -301,7 +375,9 @@
     "text": "Perfect for long gaming nights. Love the taste and the cool bottle design.",
     "rating": 5,
     "date": "2023-02-20",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "men-running-shoes-8",
@@ -309,7 +385,9 @@
     "text": "Comfortable, good fit, and the grip is excellent. Happy with my purchase.",
     "rating": 5,
     "date": "2023-02-20",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "kids-light-up-sneakers-8",
@@ -317,7 +395,9 @@
     "text": "Good quality and the lights are a nice touch. My kid wears them all the time.",
     "rating": 4,
     "date": "2023-02-20",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "dragon-potion-1",
@@ -325,7 +405,9 @@
     "text": "The tropical flavor is really good, and the energy kick is powerful.",
     "rating": 5,
     "date": "2023-02-18",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "women-sandals-9",
@@ -333,7 +415,9 @@
     "text": "Stunning and comfortable. I wore them to a wedding and got so many compliments.",
     "rating": 5,
     "date": "2023-02-17",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "chocolate-candy-box-8",
@@ -341,7 +425,9 @@
     "text": "The box is nicely packaged, making it a great gift option.",
     "rating": 5,
     "date": "2023-02-15",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "cat-ear-beanie-6",
@@ -349,7 +435,9 @@
     "text": "It's quite nice but a little snug on my head. Maybe it's just my head size. But I love the design!",
     "rating": 3,
     "date": "2023-02-15",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9995
   },
   {
     "id": "dark-red-potion-1",
@@ -357,7 +445,9 @@
     "text": "The cherry cola flavor is very appealing. Provides a good energy boost for gaming!",
     "rating": 4,
     "date": "2023-02-12",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "teal-potion-1",
@@ -365,7 +455,9 @@
     "text": "The mint and citrus blend is very refreshing. And the bottle design is great too!",
     "rating": 5,
     "date": "2023-02-12",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "red-potion-1",
@@ -373,7 +465,9 @@
     "text": "The berry flavor is intense and delicious. Great for keeping me focused during my gaming sessions.",
     "rating": 5,
     "date": "2023-02-10",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "chocolate-candy-box-7",
@@ -381,7 +475,9 @@
     "text": "These chocolates are so tasty! Love the variety of flavors.",
     "rating": 5,
     "date": "2023-01-24",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "women-sandals-8",
@@ -389,7 +485,9 @@
     "text": "Nice sandals, but they run a bit small. I recommend ordering a size up.",
     "rating": 4,
     "date": "2023-01-23",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9912
   },
   {
     "id": "blue-energy-potion-1",
@@ -397,7 +495,9 @@
     "text": "The design is just epic! And the energy boost is real.",
     "rating": 4,
     "date": "2023-01-15",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "men-running-shoes-7",
@@ -405,7 +505,9 @@
     "text": "Really like the design and they're great for running. They're also easy to clean.",
     "rating": 4,
     "date": "2023-01-15",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9998
   },
   {
     "id": "kids-light-up-sneakers-7",
@@ -413,7 +515,9 @@
     "text": "These sneakers are worth every penny! They're durable and my kid loves them!",
     "rating": 5,
     "date": "2023-01-15",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9998
   },
   {
     "id": "hiking-boots-outdoor-8",
@@ -421,7 +525,9 @@
     "text": "These are decent boots for hiking, but they took a while to break in.",
     "rating": 3,
     "date": "2023-01-13",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "NEGATIVE",
+    "confidence": 0.9876
   },
   {
     "id": "classic-leather-sneakers-6",
@@ -429,7 +535,9 @@
     "text": "Impressive build quality and comfort. However, I wish they were a bit cheaper.",
     "rating": 4,
     "date": "2023-01-10",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9949
   },
   {
     "id": "cat-ear-beanie-5",
@@ -437,7 +545,9 @@
     "text": "A must-have for cat lovers. It's adorable and keeps me warm during chilly weather.",
     "rating": 4,
     "date": "2023-01-10",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "cat-ear-beanie-4",
@@ -445,7 +555,9 @@
     "text": "I bought this for my daughter, and she adores it! It's become her favorite winter accessory.",
     "rating": 5,
     "date": "2022-12-25",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9998
   },
   {
     "id": "chocolate-candy-box-6",
@@ -453,7 +565,9 @@
     "text": "Bought the large box, and it's lasted quite a while. Great for when you need a sweet treat.",
     "rating": 5,
     "date": "2022-12-18",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9998
   },
   {
     "id": "women-sandals-7",
@@ -461,7 +575,9 @@
     "text": "These sandals are a must-have! They look amazing and feel great.",
     "rating": 5,
     "date": "2022-12-18",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "hiking-boots-outdoor-7",
@@ -469,7 +585,9 @@
     "text": "Great traction and support. My feet stayed dry even in wet conditions.",
     "rating": 5,
     "date": "2022-12-07",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "NEGATIVE",
+    "confidence": 0.7892
   },
   {
     "id": "men-running-shoes-6",
@@ -477,7 +595,9 @@
     "text": "Shoes are okay, but the cushioning could be better.",
     "rating": 3,
     "date": "2022-11-25",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.5498
   },
   {
     "id": "kids-light-up-sneakers-6",
@@ -485,7 +605,9 @@
     "text": "The shoes are great but the battery life for the lights could be better.",
     "rating": 3,
     "date": "2022-11-25",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "NEGATIVE",
+    "confidence": 0.9795
   },
   {
     "id": "women-sandals-6",
@@ -493,7 +615,9 @@
     "text": "Beautiful shoes, but not very comfortable. Good for short-term wear.",
     "rating": 3,
     "date": "2022-11-20",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9769
   },
   {
     "id": "classic-leather-sneakers-5",
@@ -501,7 +625,9 @@
     "text": "Was looking for a good pair of white sneakers and these fit the bill. Excellent quality and design.",
     "rating": 5,
     "date": "2022-11-20",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9991
   },
   {
     "id": "hiking-boots-outdoor-6",
@@ -509,7 +635,9 @@
     "text": "These boots are perfect for hiking. They're comfortable and provide excellent support.",
     "rating": 5,
     "date": "2022-11-10",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "chocolate-candy-box-5",
@@ -517,7 +645,9 @@
     "text": "A bit pricey, but the quality of the chocolate is worth it.",
     "rating": 4,
     "date": "2022-11-05",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "hiking-boots-outdoor-5",
@@ -525,7 +655,9 @@
     "text": "Great boots! The size was perfect, and they're very comfortable.",
     "rating": 5,
     "date": "2022-10-19",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "women-sandals-5",
@@ -533,7 +665,9 @@
     "text": "Great quality for the price. The buckle closure is secure, and the heel feels sturdy.",
     "rating": 4,
     "date": "2022-10-14",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9993
   },
   {
     "id": "men-running-shoes-5",
@@ -541,7 +675,9 @@
     "text": "Good shoes, but they run a little small. I'd recommend ordering a half size up.",
     "rating": 4,
     "date": "2022-10-05",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "NEGATIVE",
+    "confidence": 0.6967
   },
   {
     "id": "kids-light-up-sneakers-5",
@@ -549,7 +685,9 @@
     "text": "Nice design and the lights are bright. However, they run a bit small. Order a size up.",
     "rating": 4,
     "date": "2022-10-05",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.6059
   },
   {
     "id": "cat-ear-beanie-3",
@@ -557,7 +695,9 @@
     "text": "Great beanie, but I wish there were more colors available. The cat ears design is really nice.",
     "rating": 3,
     "date": "2022-10-05",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9997
   },
   {
     "id": "chocolate-candy-box-4",
@@ -565,7 +705,9 @@
     "text": "The cherry flavor is amazing. Will be buying more.",
     "rating": 5,
     "date": "2022-10-02",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "hiking-boots-outdoor-4",
@@ -573,7 +715,9 @@
     "text": "These boots are durable and comfortable, but they're a bit heavy.",
     "rating": 4,
     "date": "2022-09-28",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "NEGATIVE",
+    "confidence": 0.9188
   },
   {
     "id": "women-sandals-4",
@@ -581,7 +725,9 @@
     "text": "The sandals are pretty, but the heel is higher than I expected.",
     "rating": 3,
     "date": "2022-09-27",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9979
   },
   {
     "id": "cat-ear-beanie-2",
@@ -589,7 +735,9 @@
     "text": "A cozy and unique beanie. Received a lot of compliments. Plus, it's cat-themed, so that's a win for me!",
     "rating": 4,
     "date": "2022-09-20",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "men-running-shoes-4",
@@ -597,7 +745,9 @@
     "text": "Best running shoes I've had in a while. They're really comfortable, even on long runs.",
     "rating": 5,
     "date": "2022-09-15",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9998
   },
   {
     "id": "kids-light-up-sneakers-4",
@@ -605,7 +755,9 @@
     "text": "Comfortable and fun! My child loves showing off the light-up feature to friends.",
     "rating": 4,
     "date": "2022-09-15",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "classic-leather-sneakers-4",
@@ -613,7 +765,9 @@
     "text": "They're nice shoes but they felt a little tight at first. They loosened up after a few days though.",
     "rating": 3,
     "date": "2022-09-12",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.8111
   },
   {
     "id": "chocolate-candy-box-3",
@@ -621,7 +775,9 @@
     "text": "Nice variety of flavors. The chocolate is rich and smooth.",
     "rating": 5,
     "date": "2022-09-10",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "chocolate-candy-box-2",
@@ -629,7 +785,9 @@
     "text": "I bought these as a gift, and they were well received. Will definitely purchase again.",
     "rating": 4,
     "date": "2022-08-16",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "hiking-boots-outdoor-3",
@@ -637,7 +795,9 @@
     "text": "Good quality boots. They keep my feet dry and comfortable during long hikes.",
     "rating": 4,
     "date": "2022-08-15",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9998
   },
   {
     "id": "men-running-shoes-3",
@@ -645,7 +805,9 @@
     "text": "These shoes look good, but they wore out a bit faster than I expected.",
     "rating": 3,
     "date": "2022-08-10",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "NEGATIVE",
+    "confidence": 0.9984
   },
   {
     "id": "kids-light-up-sneakers-3",
@@ -653,7 +815,9 @@
     "text": "Cool shoes, but the lights stopped working after a few weeks.",
     "rating": 3,
     "date": "2022-08-10",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "NEGATIVE",
+    "confidence": 0.998
   },
   {
     "id": "classic-leather-sneakers-3",
@@ -661,7 +825,9 @@
     "text": "I got the black ones and they look sleek. Got compliments on the first day I wore them out.",
     "rating": 5,
     "date": "2022-08-07",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9993
   },
   {
     "id": "women-sandals-3",
@@ -669,7 +835,9 @@
     "text": "Absolutely love these sandals! They're so elegant and surprisingly comfortable.",
     "rating": 5,
     "date": "2022-08-03",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "hiking-boots-outdoor-2",
@@ -677,7 +845,9 @@
     "text": "Comfortable and sturdy. Perfect for outdoor adventures.",
     "rating": 5,
     "date": "2022-07-30",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "chocolate-candy-box-1",
@@ -685,7 +855,9 @@
     "text": "Absolutely delicious! The orange flavor is my favorite.",
     "rating": 5,
     "date": "2022-07-22",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "men-running-shoes-2",
@@ -693,7 +865,9 @@
     "text": "Very happy with my purchase. These shoes provide good support for my morning jogs.",
     "rating": 4,
     "date": "2022-07-20",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "kids-light-up-sneakers-2",
@@ -701,7 +875,9 @@
     "text": "Bought these for my son's birthday, and they were the star of the party. Great shoes!",
     "rating": 5,
     "date": "2022-07-20",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "women-sandals-2",
@@ -709,7 +885,9 @@
     "text": "These sandals look great, but they're a bit tight. Maybe they'll stretch over time.",
     "rating": 4,
     "date": "2022-07-18",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "NEGATIVE",
+    "confidence": 0.9383
   },
   {
     "id": "cat-ear-beanie-1",
@@ -717,7 +895,9 @@
     "text": "Love this Cat Ear Beanie! It's so cute and surprisingly warm. The material is so soft, and the cat ears are a nice touch!",
     "rating": 5,
     "date": "2022-07-15",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "classic-leather-sneakers-2",
@@ -725,7 +905,9 @@
     "text": "I love the classic design of these sneakers. They match well with my outfits. The leather is of top quality.",
     "rating": 4,
     "date": "2022-07-10",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9998
   },
   {
     "id": "men-running-shoes-1",
@@ -733,7 +915,9 @@
     "text": "Great shoes for running! Comfortable and stylish, with excellent traction.",
     "rating": 5,
     "date": "2022-07-01",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "kids-light-up-sneakers-1",
@@ -741,7 +925,9 @@
     "text": "My daughter loves these shoes! She doesn't want to take them off. They're comfortable and the lights are a big hit.",
     "rating": 5,
     "date": "2022-07-01",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9997
   },
   {
     "id": "hiking-boots-outdoor-1",
@@ -749,7 +935,9 @@
     "text": "These boots are fantastic for hiking. The grip on the soles is really good.",
     "rating": 5,
     "date": "2022-06-15",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9998
   },
   {
     "id": "classic-leather-sneakers-1",
@@ -757,7 +945,9 @@
     "text": "These shoes are not only stylish, but also super comfortable. They're perfect for any occasion!",
     "rating": 5,
     "date": "2022-06-15",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   },
   {
     "id": "women-sandals-1",
@@ -765,6 +955,8 @@
     "text": "Stylish and comfortable! I love the strappy design.",
     "rating": 5,
     "date": "2022-06-12",
-    "section": "Reviews"
+    "section": "Reviews",
+    "sentiment": "POSITIVE",
+    "confidence": 0.9999
   }
 ]
