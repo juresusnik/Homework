@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import json
 import os
-from transformers import pipeline
 import plotly.express as px
 
 # Page Config
@@ -12,26 +11,13 @@ st.set_page_config(
     layout="wide"
 )
 
-# Load Sentiment Model (Hugging Face)
-@st.cache_resource
-def load_model():
-    """Load pre-trained sentiment analysis model from Hugging Face"""
-    try:
-        return pipeline("sentiment-analysis", model="distilbert-base-uncased-finetuned-sst-2-english", device=-1)
-    except Exception as e:
-        st.error(f"Failed to load sentiment model: {e}")
-        st.info("Using fallback sentiment analysis...")
-        return None
-
-sentiment_pipeline = load_model()
-
 # Load Data
 @st.cache_data
 def load_data():
-    """Load scraped review data from JSON file"""
+    """Load scraped review data with pre-computed sentiments from JSON file"""
     if not os.path.exists('data.json'):
         st.error("⚠️ data.json not found! Please run scraper.py first.")
-        st.info("Run: `python scraper.py` to generate data.json")
+        st.info("Run: `python scraper.py` to generate data.json with sentiment analysis")
         return pd.DataFrame()
     
     try:
@@ -41,6 +27,11 @@ def load_data():
         
         if 'date' in df.columns:
             df['date'] = pd.to_datetime(df['date'], errors='coerce')
+        
+        # Verify sentiment data exists
+        if 'sentiment' not in df.columns or 'confidence' not in df.columns:
+            st.error("⚠️ Sentiment data missing! Please re-run scraper.py to compute sentiments.")
+            return pd.DataFrame()
         
         return df
     except Exception as e:
@@ -88,10 +79,6 @@ elif page == "Reviews":
         st.error("⚠️ No data available. Please run `python scraper.py` to collect reviews.")
         st.stop()
     
-    if sentiment_pipeline is None:
-        st.error("⚠️ Sentiment analysis model failed to load.")
-        st.stop()
-    
     # Month Selection
     months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     
@@ -104,25 +91,15 @@ elif page == "Reviews":
     filtered_df = df[(df['date'].dt.month == month_idx) & (df['date'].dt.year == 2023)].copy()
     
     if not filtered_df.empty:
-        # Perform Sentiment Analysis
-        with st.spinner("🤖 Analyzing sentiments with Hugging Face AI..."):
-            try:
-                # Process texts in batches for better performance
-                texts = filtered_df['text'].tolist()
-                results = sentiment_pipeline(texts, truncation=True, max_length=512)
-                
-                filtered_df['Sentiment'] = [res['label'] for res in results]
-                filtered_df['Confidence'] = [round(res['score'], 4) for res in results]
-                
-                # Map POSITIVE/NEGATIVE to more readable format
-                filtered_df['Sentiment_Display'] = filtered_df['Sentiment'].map({
-                    'POSITIVE': '✅ Positive',
-                    'NEGATIVE': '❌ Negative'
-                })
-                
-            except Exception as e:
-                st.error(f"Error during sentiment analysis: {e}")
-                st.stop()
+        # Use pre-computed sentiment data
+        filtered_df['Sentiment'] = filtered_df['sentiment']
+        filtered_df['Confidence'] = filtered_df['confidence']
+        
+        # Map POSITIVE/NEGATIVE to more readable format
+        filtered_df['Sentiment_Display'] = filtered_df['Sentiment'].map({
+            'POSITIVE': '✅ Positive',
+            'NEGATIVE': '❌ Negative'
+        })
         
         # --- Key Metrics ---
         st.subheader(f"📈 Analytics for {selected_month_name} 2023")
@@ -221,5 +198,6 @@ st.sidebar.markdown("---")
 st.sidebar.info(
     "**Sentiment Analysis**\n\n"
     "Model: DistilBERT (Hugging Face)\n\n"
+    "Sentiments pre-computed during scraping\n\n"
     "Data: web-scraping.dev"
 )

@@ -2,6 +2,18 @@ import requests
 import json
 from datetime import datetime
 import time
+from transformers import pipeline
+
+# Load sentiment model once at module level
+print("🤖 Loading Hugging Face sentiment model...")
+try:
+    sentiment_pipeline = pipeline("sentiment-analysis", 
+                                 model="distilbert-base-uncased-finetuned-sst-2-english",
+                                 device=-1)  # CPU
+    print("✅ Model loaded successfully!\n")
+except Exception as e:
+    print(f"❌ Failed to load model: {e}")
+    sentiment_pipeline = None
 
 def scrape_data():
     """
@@ -94,13 +106,27 @@ def scrape_data():
                 title = " ".join(word.capitalize() for word in review_id.rsplit('-', 1)[0].split('-'))
                 title = f"{title} Review"
                 
+                # Pre-compute sentiment analysis
+                sentiment_label = "UNKNOWN"
+                sentiment_score = 0.0
+                
+                if sentiment_pipeline and text:
+                    try:
+                        result = sentiment_pipeline(text[:512], truncation=True)[0]
+                        sentiment_label = result['label']
+                        sentiment_score = round(result['score'], 4)
+                    except Exception as e:
+                        print(f"   ⚠️  Sentiment analysis failed for review {review_id}: {e}")
+                
                 all_reviews.append({
                     "id": review_id,
                     "title": title,
                     "text": text,
                     "rating": rating,
                     "date": formatted_date,
-                    "section": "Reviews"
+                    "section": "Reviews",
+                    "sentiment": sentiment_label,
+                    "confidence": sentiment_score
                 })
             
             print(f"   ✅ Fetched {len(edges)} reviews (Total so far: {len(all_reviews)})")
