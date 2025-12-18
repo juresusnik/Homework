@@ -3,6 +3,10 @@ import pandas as pd
 import json
 import os
 import plotly.express as px
+from wordcloud import WordCloud
+from PIL import Image
+import matplotlib.pyplot as plt
+import io
 
 # Page Config
 st.set_page_config(
@@ -184,6 +188,57 @@ elif page == "Reviews":
             st.metric("Negative Reviews Avg Confidence", 
                      f"{sentiment_counts[sentiment_counts['Sentiment']=='NEGATIVE']['Confidence'].values[0]:.1%}" 
                      if 'NEGATIVE' in sentiment_counts['Sentiment'].values else "N/A")
+        
+        st.markdown("---")
+        
+        # --- Word Cloud Generation (Bonus Feature) ---
+        st.subheader(f"☁️ Word Cloud - {selected_month_name} 2023")
+        
+        # Combine all review texts for the selected month
+        all_text = " ".join(filtered_df['text'].astype(str))
+        
+        if all_text.strip():
+            # Generate word cloud
+            try:
+                wordcloud = WordCloud(
+                    width=800, 
+                    height=400,
+                    background_color='white',
+                    colormap='viridis',
+                    max_words=100,
+                    relative_scaling=0.5,
+                    min_font_size=10
+                ).generate(all_text)
+                
+                # Create matplotlib figure
+                fig_wc, ax = plt.subplots(figsize=(10, 5))
+                ax.imshow(wordcloud, interpolation='bilinear')
+                ax.axis('off')
+                ax.set_title(f'Most Frequent Words in {selected_month_name} 2023 Reviews', 
+                           fontsize=16, fontweight='bold', pad=20)
+                
+                # Display in Streamlit
+                st.pyplot(fig_wc, use_container_width=True)
+                
+                # Show word frequency insights
+                word_freq = wordcloud.words_
+                if word_freq:
+                    st.subheader("🔤 Top Keywords")
+                    
+                    # Create columns for top words
+                    cols = st.columns(5)
+                    top_words = list(word_freq.items())[:10]
+                    
+                    for i, (word, freq) in enumerate(top_words):
+                        col_idx = i % 5
+                        with cols[col_idx]:
+                            st.metric(word.title(), f"{freq:.3f}")
+                
+            except Exception as e:
+                st.error(f"Error generating word cloud: {e}")
+                st.info("Word cloud generation requires sufficient text data.")
+        else:
+            st.warning(f"Not enough text data to generate word cloud for {selected_month_name} 2023.")
             
     else:
         st.warning(f"⚠️ No reviews found for {selected_month_name} 2023. Try another month.")
