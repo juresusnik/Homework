@@ -46,28 +46,30 @@ page = st.sidebar.radio("Select Section:", ["Reviews", "Products", "Testimonials
 
 # --- Products/Testimonials Sections ---
 if page == "Products":
-    st.header("📦 Products")
+    st.header("📦 Products - All Scraped Data")
     
     if not df.empty:
-        products_df = df[df['section'] == 'Products'] if 'section' in df.columns else pd.DataFrame()
+        # Display all scraped data in clean format
+        display_df = df[['date', 'title', 'rating', 'text']].copy()
+        display_df['date'] = pd.to_datetime(display_df['date']).dt.strftime("%Y-%m-%d")
+        display_df['rating'] = display_df['rating'].apply(lambda x: '⭐' * x)
         
-        if not products_df.empty:
-            st.dataframe(products_df, use_container_width=True)
-        else:
-            st.info("No products data available in the dataset.")
+        st.dataframe(display_df, use_container_width=True, height=600)
+        st.info(f"📊 Total items in dataset: {len(df)}")
     else:
         st.warning("No data loaded. Please run scraper.py first.")
 
 elif page == "Testimonials":
-    st.header("💬 Testimonials")
+    st.header("💬 Testimonials - All Scraped Data")
     
     if not df.empty:
-        testimonials_df = df[df['section'] == 'Testimonials'] if 'section' in df.columns else pd.DataFrame()
+        # Display all scraped data in clean format
+        display_df = df[['date', 'title', 'rating', 'text']].copy()
+        display_df['date'] = pd.to_datetime(display_df['date']).dt.strftime("%Y-%m-%d")
+        display_df['rating'] = display_df['rating'].apply(lambda x: '⭐' * x)
         
-        if not testimonials_df.empty:
-            st.dataframe(testimonials_df, use_container_width=True)
-        else:
-            st.info("No testimonials data available in the dataset.")
+        st.dataframe(display_df, use_container_width=True, height=600)
+        st.info(f"📊 Total items in dataset: {len(df)}")
     else:
         st.warning("No data loaded. Please run scraper.py first.")
 
