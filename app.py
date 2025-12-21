@@ -4,13 +4,11 @@ import json
 import os
 import plotly.express as px
 from wordcloud import WordCloud
-from PIL import Image
 import matplotlib.pyplot as plt
-import io
 
 # Page Config
 st.set_page_config(
-    page_title="Brand Sentinel 2023 - Sentiment Analysis",
+    page_title="Web Scraping Dashboard - 2023 Data",
     page_icon="📊",
     layout="wide"
 )
@@ -18,71 +16,145 @@ st.set_page_config(
 # Load Data
 @st.cache_data
 def load_data():
-    """Load scraped review data with pre-computed sentiments from JSON file"""
+    """Load scraped data from JSON file"""
     if not os.path.exists('data.json'):
-        st.error("⚠️ data.json not found! Please run scraper.py first.")
-        st.info("Run: `python scraper.py` to generate data.json with sentiment analysis")
-        return pd.DataFrame()
+        st.error("⚠️ data.json not found! Please run scraper_complete.py first.")
+        st.info("Run: `python scraper_complete.py` to generate data")
+        return None, None, None
     
     try:
         with open('data.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
-        df = pd.DataFrame(data)
         
-        if 'date' in df.columns:
-            df['date'] = pd.to_datetime(df['date'], errors='coerce')
+        # Load each section separately
+        reviews_df = pd.DataFrame(data.get('reviews', []))
+        products_df = pd.DataFrame(data.get('products', []))
+        testimonials_df = pd.DataFrame(data.get('testimonials', []))
         
-        # Verify sentiment data exists
-        if 'sentiment' not in df.columns or 'confidence' not in df.columns:
-            st.error("⚠️ Sentiment data missing! Please re-run scraper.py to compute sentiments.")
-            return pd.DataFrame()
+        # Convert dates for reviews
+        if not reviews_df.empty and 'date' in reviews_df.columns:
+            reviews_df['date'] = pd.to_datetime(reviews_df['date'], errors='coerce')
         
-        return df
+        return reviews_df, products_df, testimonials_df
     except Exception as e:
         st.error(f"Error loading data: {e}")
-        return pd.DataFrame()
+        return None, None, None
 
-df = load_data()
+reviews_df, products_df, testimonials_df = load_data()
 
 # --- Sidebar Navigation ---
-st.sidebar.title("Navigation")
+st.sidebar.title("🧭 Navigation")
 page = st.sidebar.radio("Select Section:", ["Reviews", "Products", "Testimonials"])
 
-# --- Products/Testimonials Sections ---
+# --- PRODUCTS SECTION ---
 if page == "Products":
-    st.header("📦 Products - All Scraped Data")
+    st.title("📦 Products Section")
+    st.markdown("---")
     
-    if not df.empty:
-        # Display all scraped data in clean format
-        display_df = df[['date', 'title', 'rating', 'text']].copy()
-        display_df['date'] = pd.to_datetime(display_df['date']).dt.strftime("%Y-%m-%d")
-        display_df['rating'] = display_df['rating'].apply(lambda x: '⭐' * x)
+    if products_df is not None and not products_df.empty:
+        st.subheader(f"Total Products: {len(products_df)}")
         
-        st.dataframe(display_df, use_container_width=True, height=600)
-        st.info(f"📊 Total items in dataset: {len(df)}")
+        # Display products in a nice format
+        for idx, product in products_df.iterrows():
+            with st.expander(f"**{product.get('name', 'Unknown Product')}** - {product.get('price', 'N/A')}"):
+                st.markdown(f"**Product ID:** {product.get('id', 'N/A')}")
+                st.markdown(f"**Price:** {product.get('price', 'N/A')}")
+                st.markdown(f"**Description:**")
+                st.write(product.get('description', 'No description available'))
+        
+        # Display as dataframe
+        st.markdown("---")
+        st.subheader("📋 Products Table")
+        display_df = products_df[['name', 'price', 'description']].copy()
+        st.dataframe(display_df, use_container_width=True, height=400)
+        
+        # Statistics
+        st.markdown("---")
+        st.subheader("📊 Statistics")
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.metric("Total Products", len(products_df))
+        
+        with col2:
+            # Count products by price range
+            if 'price' in products_df.columns:
+                try:
+                    products_df['price_num'] = products_df['price'].str.replace('$', '').astype(float)
+                    avg_price = products_df['price_num'].mean()
+                    st.metric("Average Price", f"${avg_price:.2f}")
+                except:
+                    st.metric("Average Price", "N/A")
     else:
-        st.warning("No data loaded. Please run scraper.py first.")
+        st.warning("⚠️ No product data loaded. Please run `python scraper_complete.py` first.")
 
+# --- TESTIMONIALS SECTION ---
 elif page == "Testimonials":
-    st.header("💬 Testimonials - All Scraped Data")
+    st.title("💬 Testimonials Section")
+    st.markdown("---")
     
-    if not df.empty:
-        # Display all scraped data in clean format
-        display_df = df[['date', 'title', 'rating', 'text']].copy()
-        display_df['date'] = pd.to_datetime(display_df['date']).dt.strftime("%Y-%m-%d")
-        display_df['rating'] = display_df['rating'].apply(lambda x: '⭐' * x)
+    if testimonials_df is not None and not testimonials_df.empty:
+        st.subheader(f"Total Testimonials: {len(testimonials_df)}")
         
-        st.dataframe(display_df, use_container_width=True, height=600)
-        st.info(f"📊 Total items in dataset: {len(df)}")
+        # Display testimonials in cards
+        for idx, testimonial in testimonials_df.iterrows():
+            rating = testimonial.get('rating', 0)
+            stars = '⭐' * rating
+            
+            with st.container():
+                st.markdown(f"### {stars}")
+                st.write(f'"{testimonial.get("text", "")}"')
+                st.markdown("---")
+        
+        # Display as dataframe
+        st.subheader("📋 Testimonials Table")
+        display_df = testimonials_df[['text', 'rating']].copy()
+        display_df['rating'] = display_df['rating'].apply(lambda x: '⭐' * x)
+        st.dataframe(display_df, use_container_width=True, height=400)
+        
+        # Statistics
+        st.markdown("---")
+        st.subheader("📊 Statistics")
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            st.metric("Total Testimonials", len(testimonials_df))
+        
+        with col2:
+            if 'rating' in testimonials_df.columns:
+                avg_rating = testimonials_df['rating'].mean()
+                st.metric("Average Rating", f"{avg_rating:.2f} ⭐")
+        
+        with col3:
+            if 'rating' in testimonials_df.columns:
+                five_star_count = len(testimonials_df[testimonials_df['rating'] == 5])
+                st.metric("5-Star Reviews", five_star_count)
+        
+        # Rating distribution chart
+        if 'rating' in testimonials_df.columns:
+            st.markdown("---")
+            st.subheader("📊 Rating Distribution")
+            
+            rating_counts = testimonials_df['rating'].value_counts().sort_index()
+            fig = px.bar(
+                x=rating_counts.index,
+                y=rating_counts.values,
+                labels={'x': 'Rating (Stars)', 'y': 'Count'},
+                title='Testimonial Rating Distribution',
+                color=rating_counts.values,
+                color_continuous_scale='Viridis'
+            )
+            st.plotly_chart(fig, use_container_width=True)
     else:
-        st.warning("No data loaded. Please run scraper.py first.")
+        st.warning("⚠️ No testimonial data loaded. Please run `python scraper_complete.py` first.")
 
-# --- Reviews (Core Feature) ---
+# --- REVIEWS SECTION (Core Feature with Month Filter) ---
 elif page == "Reviews":
-    st.header("📊 2023 Sentiment Analysis Dashboard")
+    st.title("📊 2023 Reviews Analysis Dashboard")
+    st.markdown("---")
     
-    if df.empty:
-        st.error("⚠️ No data available. Please run `python scraper.py` to collect reviews.")
+    if reviews_df is None or reviews_df.empty:
+        st.error("⚠️ No review data available. Please run `python scraper_complete.py` to collect reviews.")
         st.stop()
     
     # Month Selection
@@ -93,116 +165,83 @@ elif page == "Reviews":
     selected_month_name = st.sidebar.select_slider("Select Month (2023)", options=months, value="Jan")
     month_idx = months.index(selected_month_name) + 1
     
-    # Filter Data
-    filtered_df = df[(df['date'].dt.month == month_idx) & (df['date'].dt.year == 2023)].copy()
+    # Filter Data by Month
+    filtered_df = reviews_df[
+        (reviews_df['date'].dt.month == month_idx) & 
+        (reviews_df['date'].dt.year == 2023)
+    ].copy()
     
     if not filtered_df.empty:
-        # Use pre-computed sentiment data
-        filtered_df['Sentiment'] = filtered_df['sentiment']
-        filtered_df['Confidence'] = filtered_df['confidence']
-        
-        # Map POSITIVE/NEGATIVE to more readable format
-        filtered_df['Sentiment_Display'] = filtered_df['Sentiment'].map({
-            'POSITIVE': '✅ Positive',
-            'NEGATIVE': '❌ Negative'
-        })
-        
-        # --- Key Metrics ---
+        # Key Metrics
         st.subheader(f"📈 Analytics for {selected_month_name} 2023")
         
         col_m1, col_m2, col_m3, col_m4 = st.columns(4)
         
         total_reviews = len(filtered_df)
-        positive_count = (filtered_df['Sentiment'] == 'POSITIVE').sum()
-        negative_count = (filtered_df['Sentiment'] == 'NEGATIVE').sum()
-        avg_confidence = filtered_df['Confidence'].mean()
+        avg_rating = filtered_df['rating'].mean()
+        five_star = len(filtered_df[filtered_df['rating'] == 5])
+        one_star = len(filtered_df[filtered_df['rating'] == 1])
         
         with col_m1:
             st.metric("Total Reviews", total_reviews)
         
         with col_m2:
-            st.metric("✅ Positive", positive_count, delta=f"{positive_count/total_reviews*100:.1f}%")
+            st.metric("Average Rating", f"{avg_rating:.2f} ⭐")
         
         with col_m3:
-            st.metric("❌ Negative", negative_count, delta=f"{negative_count/total_reviews*100:.1f}%")
+            st.metric("5-Star Reviews", five_star, delta=f"{five_star/total_reviews*100:.1f}%")
         
         with col_m4:
-            st.metric("Avg Confidence", f"{avg_confidence:.2%}")
+            st.metric("1-Star Reviews", one_star, delta=f"-{one_star/total_reviews*100:.1f}%", delta_color="inverse")
         
         st.markdown("---")
         
-        # Display Table
+        # Display Reviews Table
         st.subheader(f"📋 Reviews for {selected_month_name} 2023")
-        display_df = filtered_df[['date', 'title', 'text', 'Sentiment', 'Confidence']].copy()
+        display_df = filtered_df[['date', 'title', 'text', 'rating']].copy()
         display_df['date'] = display_df['date'].dt.strftime("%Y-%m-%d")
-        st.dataframe(display_df, use_container_width=True)
+        display_df['rating'] = display_df['rating'].apply(lambda x: '⭐' * x)
+        st.dataframe(display_df, use_container_width=True, height=400)
         
         st.markdown("---")
         
-        # --- Visualization: Bar Chart (Required) ---
-        st.subheader("📊 Sentiment Distribution")
+        # Rating Distribution Chart
+        st.subheader("📊 Rating Distribution")
         
-        # Calculate sentiment counts and average confidence
-        sentiment_counts = filtered_df['Sentiment'].value_counts().reset_index()
-        sentiment_counts.columns = ['Sentiment', 'Count']
+        rating_counts = filtered_df['rating'].value_counts().sort_index()
         
-        # Calculate average confidence per sentiment
-        avg_conf_by_sentiment = filtered_df.groupby('Sentiment')['Confidence'].mean().reset_index()
-        sentiment_counts = sentiment_counts.merge(avg_conf_by_sentiment, on='Sentiment')
-        
-        # Create bar chart with confidence scores
         fig = px.bar(
-            sentiment_counts,
-            x='Sentiment',
-            y='Count',
-            color='Sentiment',
-            title=f"Positive vs Negative Reviews - {selected_month_name} 2023<br><sub>Overall Average Confidence: {avg_confidence:.1%}</sub>",
-            color_discrete_map={'POSITIVE': '#2ecc71', 'NEGATIVE': '#e74c3c'},
-            text='Count',
-            hover_data={'Confidence': ':.1%'},
-            labels={'Count': 'Number of Reviews', 'Confidence': 'Avg Confidence'}
+            x=rating_counts.index,
+            y=rating_counts.values,
+            labels={'x': 'Rating (Stars)', 'y': 'Number of Reviews'},
+            title=f"Review Ratings Distribution - {selected_month_name} 2023",
+            color=rating_counts.index,
+            color_continuous_scale=['#e74c3c', '#f39c12', '#f1c40f', '#2ecc71', '#27ae60'],
+            text=rating_counts.values
         )
         
-        fig.update_traces(
-            textposition='outside',
-            hovertemplate='<b>%{x}</b><br>Count: %{y}<br>Avg Confidence: %{customdata[0]:.1%}<extra></extra>'
-        )
-        
+        fig.update_traces(textposition='outside')
         fig.update_layout(
-            xaxis_title="Sentiment",
+            xaxis_title="Rating (Stars)",
             yaxis_title="Number of Reviews",
             showlegend=False,
-            height=500,
-            font=dict(size=14)
+            height=500
         )
         
         st.plotly_chart(fig, use_container_width=True)
         
-        # Show detailed confidence metrics
-        col1, col2 = st.columns(2)
-        with col1:
-            st.metric("Positive Reviews Avg Confidence", 
-                     f"{sentiment_counts[sentiment_counts['Sentiment']=='POSITIVE']['Confidence'].values[0]:.1%}" 
-                     if 'POSITIVE' in sentiment_counts['Sentiment'].values else "N/A")
-        with col2:
-            st.metric("Negative Reviews Avg Confidence", 
-                     f"{sentiment_counts[sentiment_counts['Sentiment']=='NEGATIVE']['Confidence'].values[0]:.1%}" 
-                     if 'NEGATIVE' in sentiment_counts['Sentiment'].values else "N/A")
-        
         st.markdown("---")
         
-        # --- Word Cloud Generation (Bonus Feature) ---
+        # Word Cloud
         st.subheader(f"☁️ Word Cloud - {selected_month_name} 2023")
         
-        # Combine all review texts for the selected month
         all_text = " ".join(filtered_df['text'].astype(str))
         
         if all_text.strip():
-            # Generate word cloud
             try:
                 wordcloud = WordCloud(
-                    width=800, 
-                    height=400,
+                    width=1200,
+                    height=600,
                     background_color='white',
                     colormap='viridis',
                     max_words=100,
@@ -210,51 +249,47 @@ elif page == "Reviews":
                     min_font_size=10
                 ).generate(all_text)
                 
-                # Create matplotlib figure
-                fig_wc, ax = plt.subplots(figsize=(10, 5))
+                fig, ax = plt.subplots(figsize=(15, 8))
                 ax.imshow(wordcloud, interpolation='bilinear')
                 ax.axis('off')
-                ax.set_title(f'Most Frequent Words in {selected_month_name} 2023 Reviews', 
-                           fontsize=16, fontweight='bold', pad=20)
+                st.pyplot(fig)
+                plt.close()
                 
-                # Display in Streamlit
-                st.pyplot(fig_wc, use_container_width=True)
-                
-                # Show word frequency insights
-                word_freq = wordcloud.words_
-                if word_freq:
-                    st.subheader("🔤 Top Keywords")
-                    
-                    # Create columns for top words
-                    cols = st.columns(5)
-                    top_words = list(word_freq.items())[:10]
-                    
-                    for i, (word, freq) in enumerate(top_words):
-                        col_idx = i % 5
-                        with cols[col_idx]:
-                            st.metric(word.title(), f"{freq:.3f}")
-                
+                st.caption(f"Word cloud generated from {total_reviews} reviews in {selected_month_name} 2023")
             except Exception as e:
                 st.error(f"Error generating word cloud: {e}")
-                st.info("Word cloud generation requires sufficient text data.")
         else:
-            st.warning(f"Not enough text data to generate word cloud for {selected_month_name} 2023.")
-            
-    else:
-        st.warning(f"⚠️ No reviews found for {selected_month_name} 2023. Try another month.")
+            st.info("No text available to generate word cloud")
         
-        # Show available data summary
-        if not df.empty:
-            st.info(f"Total reviews in dataset: {len(df)}")
-            if 'date' in df.columns:
-                date_range = f"{df['date'].min().strftime('%Y-%m-%d')} to {df['date'].max().strftime('%Y-%m-%d')}"
-                st.info(f"Date range: {date_range}")
+        # Sentiment Analysis (if available)
+        if 'sentiment' in filtered_df.columns and 'confidence' in filtered_df.columns:
+            st.markdown("---")
+            st.subheader("💭 Sentiment Analysis")
+            
+            positive_count = (filtered_df['sentiment'] == 'POSITIVE').sum()
+            negative_count = (filtered_df['sentiment'] == 'NEGATIVE').sum()
+            
+            col1, col2, col3 = st.columns(3)
+            
+            with col1:
+                st.metric("✅ Positive", positive_count, delta=f"{positive_count/total_reviews*100:.1f}%")
+            
+            with col2:
+                st.metric("❌ Negative", negative_count, delta=f"{negative_count/total_reviews*100:.1f}%")
+            
+            with col3:
+                avg_confidence = filtered_df['confidence'].mean()
+                st.metric("Avg Confidence", f"{avg_confidence:.1%}")
+    else:
+        st.warning(f"⚠️ No reviews found for {selected_month_name} 2023")
+        st.info("Try selecting a different month using the slider in the sidebar.")
 
 # Footer
 st.sidebar.markdown("---")
+st.sidebar.markdown("### About")
 st.sidebar.info(
-    "**Sentiment Analysis**\n\n"
-    "Model: DistilBERT (Hugging Face)\n\n"
-    "Sentiments pre-computed during scraping\n\n"
-    "Data: web-scraping.dev"
+    "This dashboard displays scraped data from web-scraping.dev including:\n"
+    "- **Reviews**: 2023 product reviews with month filtering\n"
+    "- **Products**: Product catalog with descriptions\n"
+    "- **Testimonials**: User testimonials with ratings"
 )

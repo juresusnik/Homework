@@ -6,3 +6,6 @@ transformers==4.46.0
 torch==2.6.0
 wordcloud==1.9.4
 matplotlib==3.10.8
+selenium==4.27.1
+webdriver-manager==4.0.2
+beautifulsoup4==4.12.3
