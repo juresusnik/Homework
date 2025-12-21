@@ -266,9 +266,17 @@ elif page == "Reviews":
             st.markdown("---")
             st.subheader("💭 Sentiment Analysis")
             
-            positive_count = (filtered_df['sentiment'] == 'POSITIVE').sum()
-            negative_count = (filtered_df['sentiment'] == 'NEGATIVE').sum()
+            # Calculate sentiment counts and average confidence
+            positive_reviews = filtered_df[filtered_df['sentiment'] == 'POSITIVE']
+            negative_reviews = filtered_df[filtered_df['sentiment'] == 'NEGATIVE']
             
+            positive_count = len(positive_reviews)
+            negative_count = len(negative_reviews)
+            
+            avg_confidence_positive = positive_reviews['confidence'].mean() if positive_count > 0 else 0
+            avg_confidence_negative = negative_reviews['confidence'].mean() if negative_count > 0 else 0
+            
+            # Display metrics
             col1, col2, col3 = st.columns(3)
             
             with col1:
@@ -278,8 +286,64 @@ elif page == "Reviews":
                 st.metric("❌ Negative", negative_count, delta=f"{negative_count/total_reviews*100:.1f}%")
             
             with col3:
-                avg_confidence = filtered_df['confidence'].mean()
-                st.metric("Avg Confidence", f"{avg_confidence:.1%}")
+                overall_avg_confidence = filtered_df['confidence'].mean()
+                st.metric("Avg Confidence", f"{overall_avg_confidence:.1%}")
+            
+            # Bar Chart: Positive vs Negative with Average Confidence
+            st.markdown("---")
+            st.subheader("📊 Sentiment Distribution with Confidence Scores")
+            
+            sentiment_data = pd.DataFrame({
+                'Sentiment': ['Positive', 'Negative'],
+                'Count': [positive_count, negative_count],
+                'Avg Confidence': [avg_confidence_positive, avg_confidence_negative]
+            })
+            
+            # Create bar chart with confidence scores
+            fig_sentiment = px.bar(
+                sentiment_data,
+                x='Sentiment',
+                y='Count',
+                title=f'Positive vs Negative Reviews - {selected_month_name} 2023',
+                color='Sentiment',
+                color_discrete_map={'Positive': '#2ecc71', 'Negative': '#e74c3c'},
+                text='Count',
+                hover_data={
+                    'Count': True,
+                    'Avg Confidence': ':.2%',
+                    'Sentiment': False
+                }
+            )
+            
+            # Add average confidence as annotation
+            fig_sentiment.update_traces(
+                textposition='outside',
+                hovertemplate='<b>%{x}</b><br>Count: %{y}<br>Avg Confidence: %{customdata[0]:.2%}<extra></extra>'
+            )
+            
+            # Add annotations for confidence scores
+            annotations = []
+            for i, row in sentiment_data.iterrows():
+                annotations.append(
+                    dict(
+                        x=row['Sentiment'],
+                        y=row['Count'],
+                        text=f"Confidence: {row['Avg Confidence']:.1%}",
+                        showarrow=False,
+                        yshift=20,
+                        font=dict(size=11, color='gray')
+                    )
+                )
+            
+            fig_sentiment.update_layout(
+                xaxis_title="Sentiment",
+                yaxis_title="Number of Reviews",
+                showlegend=False,
+                height=500,
+                annotations=annotations
+            )
+            
+            st.plotly_chart(fig_sentiment, use_container_width=True)
     else:
         st.warning(f"⚠️ No reviews found for {selected_month_name} 2023")
         st.info("Try selecting a different month using the slider in the sidebar.")
